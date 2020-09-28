@@ -15,7 +15,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-
+import messaging from '@react-native-firebase/messaging';
 import {
   Header,
   LearnMoreLinks,
@@ -24,7 +24,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+const App = () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />

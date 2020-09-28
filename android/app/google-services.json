@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "632311366088",
+    "firebase_url": "https://militree-870fb.firebaseio.com",
+    "project_id": "militree-870fb",
+    "storage_bucket": "militree-870fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632311366088:android:4d30edd3ea4b444a2c40fd",
+        "android_client_info": {
+          "package_name": "com.workspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632311366088-9boos6rfjktk5akiht08fnm4679hl5vi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.workspace",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "632311366088-nvgi3uns4c8056qj5lfa4fbboe9cqa0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5zV5To-SIxjTuzlLHb_kUsyA2uZJmBJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632311366088-nvgi3uns4c8056qj5lfa4fbboe9cqa0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
