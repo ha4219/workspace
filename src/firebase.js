@@ -9,7 +9,7 @@ const firebaseConfig = {
   storageBucket: "militree-e7652.appspot.com",
   messagingSenderId: "1051008351431",
   appId: "1:1051008351431:web:5082c67bd740374d3f12e2",
-  measurementId: "G-53SZTPNFD0"
+  measurementId: process.env.REACT_APP
 };
 
 export default firebase.initializeApp(firebaseConfig);
