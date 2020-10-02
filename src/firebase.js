@@ -2,14 +2,14 @@ import * as firebase from "firebase/app";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBgswgIS8J3F4xNHfe3zqTxionQ17CDAq8",
-  authDomain: "militree-e7652.firebaseapp.com",
-  databaseURL: "https://militree-e7652.firebaseio.com",
-  projectId: "militree-e7652",
-  storageBucket: "militree-e7652.appspot.com",
-  messagingSenderId: "1051008351431",
-  appId: "1:1051008351431:web:5082c67bd740374d3f12e2",
-  measurementId: process.env.REACT_APP
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 export default firebase.initializeApp(firebaseConfig);
