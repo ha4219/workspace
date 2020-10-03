@@ -12,11 +12,21 @@ const AppRouter =  ({isLoggedIn}) => {
             {isLoggedIn && <Navigation/>}
             <Switch>
                 {isLoggedIn ? (
-                 <><Route exact path="/"><Home/>
-                </Route></>):(<Route exact path="/"><Auth/></Route>)}
-                <Route>
-                    <Profile/>
-                </Route>
+                    <>
+                        <Route exact path='/'>
+                            <Home/>
+                        </Route>
+                        <Route exact path='/profile'>
+                            <Profile/>
+                        </Route>
+                    </>
+                ):(
+                    <>
+                        <Route exact path="/">
+                            <Auth/>
+                        </Route>
+                    </>
+                )}
             </Switch>
         </Router>
     );
