@@ -6,16 +6,16 @@ import React, { useEffect, useState } from 'react';
 const Home = ({userObj}) => {
     const [tweet, setTweet] = useState("");
     const [tweets, setTweets] = useState([]);
-    const getTweets = async() => {
-        const dbtweets = await dbService.collection("tweets").get();
-        dbtweets.forEach((document) => {
-            const tweetObject = {
-                ...document.data(),
-                id: document.id,
-            };
-            setTweets((prev) => [tweetObject,...prev]);
-        });
-    };
+    // const getTweets = async() => {
+    //     const dbtweets = await dbService.collection("tweets").get();
+    //     dbtweets.forEach((document) => {
+    //         const tweetObject = {
+    //             ...document.data(),
+    //             id: document.id,
+    //         };
+    //         setTweets((prev) => [tweetObject,...prev]);
+    //     });
+    // };
     useEffect(() => {
         dbService.collection("tweets").onSnapshot((snapshot) => {
             const tweetArray = snapshot.docs.map(doc => ({

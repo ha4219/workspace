@@ -1,23 +1,56 @@
-import React from 'react';
+import { dbService } from 'fbase';
+import React, { useState } from 'react';
 
 
 const Tweet = ({tweetObj, isOwner}) => {
-    const onDeleteClick = () => {
+    const [editing, setEditing] = useState(false);
+    const [newTweet, setTweet] = useState(tweetObj.text);
+    const onDeleteClick = async() => {
         const ok = window.confirm("Are you sure you want to del this?");
         if(ok){
-
+            await dbService.doc(`tweets/${tweetObj.id}`).delete();
         }
     };
+    const onSubmit = async(e) => {
+        e.preventDefault();
+        await dbService.doc(`tweets/${tweetObj.id}`).update({
+            text:newTweet,
+        })
+    };
+    const onChange = (e) => {
+        const {target : {value}} = e;
+        setTweet(value);
+    };
+    const toggleEditing = () => setEditing((prev) => !prev);
     return (
         <div>
-            <h4>{tweetObj.text}</h4>
-            {isOwner && (
-                <>
-                    <button onClick={onDeleteClick}>del</button>
-                    <button>edit</button>
-                </>
-            )}
-            
+            {
+                editing ? (
+                    <>
+                        <form onSubmit={onSubmit}>
+                            <input
+                            type="text"
+                            value={newTweet}
+                            required
+                            placeholder="Edit your tweet"
+                            onChange={onChange}
+                            ></input>
+                            <input type="submit" value="update"></input>
+                        </form>
+                        <button onClick={toggleEditing}>Cancel</button>
+                    </>
+                ) : (
+                    <>
+                        <h4>{tweetObj.text}</h4>
+                        {isOwner && (
+                            <>
+                                <button onClick={onDeleteClick}>del</button>
+                                <button onClick={toggleEditing}>edit</button>
+                            </>
+                        )}
+                    </>
+                )
+            }
         </div>
     );
 };
