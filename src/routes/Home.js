@@ -38,7 +38,6 @@ const Home = ({userObj}) => {
         const {target: {value}} = e;
         setTweet(value);
     };
-    console.log(tweets);
     return (
         <div>
             <form onSubmit={onSubmit}>
