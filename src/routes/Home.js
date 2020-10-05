@@ -1,12 +1,13 @@
 import Tweet from 'components/Tweet';
-import { dbService } from 'fbase';
+import { dbService, storageService } from 'fbase';
 import React, { useEffect, useState } from 'react';
+import {v4 as uuidv4} from "uuid";
 
 
 const Home = ({userObj}) => {
     const [tweet, setTweet] = useState("");
     const [tweets, setTweets] = useState([]);
-    const [attchment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
     // const getTweets = async() => {
     //     const dbtweets = await dbService.collection("tweets").get();
     //     dbtweets.forEach((document) => {
@@ -28,12 +29,21 @@ const Home = ({userObj}) => {
     },[]);
     const onSubmit = async (e) => {
         e.preventDefault();
-        await dbService.collection("tweets").add({
+        let attachmentUrl = "";
+        if(attachment!=""){
+            const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+            const response = await attachmentRef.putString(attachment, "data_url");
+            attachmentUrl = await response.ref.getDownloadURL();
+        }
+        const tweetObj = {
             text: tweet,
             createAt: Date.now(),
             creatorId: userObj.uid,
-        });
+            attachmentUrl
+        };
+        await dbService.collection("tweets").add(tweetObj);
         setTweet("");
+        setAttachment("");
     };
     const onChange = (e) => {
         const {target: {value}} = e;
@@ -65,9 +75,9 @@ const Home = ({userObj}) => {
                 type="submit" 
                 value="submit" 
                 />
-                {attchment && 
+                {attachment && 
                     <div>
-                        <img src={attchment} width="50px" height="50px"/>
+                        <img src={attachment} width="50px" height="50px"/>
                         <button value="clear" onClick={clearAttchment}></button>
                     </div>
                 }
