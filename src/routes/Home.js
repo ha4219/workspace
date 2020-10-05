@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 const Home = ({userObj}) => {
     const [tweet, setTweet] = useState("");
     const [tweets, setTweets] = useState([]);
+    const [attchment, setAttachment] = useState();
     // const getTweets = async() => {
     //     const dbtweets = await dbService.collection("tweets").get();
     //     dbtweets.forEach((document) => {
@@ -38,6 +39,17 @@ const Home = ({userObj}) => {
         const {target: {value}} = e;
         setTweet(value);
     };
+    const onFileChange = (e) => {
+        const {target:{files}} = e;
+        const theFile = files[0];
+        const reader = new FileReader();
+        reader.onloadend = (e) => {
+            const {currentTarget:{result}} = e;
+            setAttachment(result);
+        };
+        reader.readAsDataURL(theFile);
+    };
+    const clearAttchment = () => setAttachment(null);
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -48,10 +60,17 @@ const Home = ({userObj}) => {
                 maxLength={120}
                 onChange={onChange} 
                 />
+                <input type="file" accept="image/*" onChange={onFileChange}></input>
                 <input 
                 type="submit" 
                 value="submit" 
                 />
+                {attchment && 
+                    <div>
+                        <img src={attchment} width="50px" height="50px"/>
+                        <button value="clear" onClick={clearAttchment}></button>
+                    </div>
+                }
             </form>
             <div>
                 {tweets.map(tweet => (
