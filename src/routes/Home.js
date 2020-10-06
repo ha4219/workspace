@@ -1,6 +1,6 @@
 import Tweet from 'components/Tweet';
 import TweetFactory from 'components/TweetFactory';
-import { dbService, storageService } from 'fbase';
+import { dbService } from 'fbase';
 import React, { useEffect, useState } from 'react';
 
 

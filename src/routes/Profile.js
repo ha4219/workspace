@@ -11,7 +11,7 @@ const Profile = ({ refreshUser, userObj }) => {
         history.push("/");
     };
     const getMyTweets = async () => {
-        const tweets = await dbService.collection("tweets")
+        await dbService.collection("tweets")
         .where("creatorId", "==", userObj.uid)
         .orderBy("createdAt").get();
 

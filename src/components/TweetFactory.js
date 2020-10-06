@@ -68,7 +68,7 @@ const TweetFactory = ({userObj}) => {
             {attachment && 
                 <div>
                     <div className="factoryForm__attachment">
-                        <img src={attachment} style={{backgroundImage:attachment}}/>
+                        <img alt="attachment" src={attachment} style={{backgroundImage:attachment}}/>
                     </div>
                     <div className="factoryForm__clear" onClick={onClearAttachment}>
                         <span>Remove</span>

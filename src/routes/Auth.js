@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
   faGoogle,
-  faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import { authService, firebaseInstance } from 'fbase';
 
