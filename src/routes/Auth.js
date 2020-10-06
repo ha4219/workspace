@@ -1,6 +1,12 @@
 import AuthForm from 'components/AuthForm';
-import React, { useState } from 'react';
-import { authService, firebaseInstance } from '../fbase';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTwitter,
+  faGoogle,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
+import { authService, firebaseInstance } from 'fbase';
 
 
 const Auth = () => {
@@ -18,9 +24,19 @@ const Auth = () => {
         console.log(data);
     }
     return (
-        <div>
+        <div className="authContainer">
+            <FontAwesomeIcon
+            icon={faTwitter}
+            color={"#04AAFF"}
+            size="3x"
+            style={{ marginBottom: 30 }}
+            />
             <AuthForm />
-            <button name="google" onClick={onSocialClick}>Continue with Google</button>
+            <div className="authBtns">
+                <button name="google" className="authBtn" onClick={onSocialClick}>
+                    Continue with Google <FontAwesomeIcon icon={faGoogle} />
+                </button>
+            </div>
         </div>
     );
 };
