@@ -1,10 +1,11 @@
 import { authService, dbService } from 'fbase';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
 const Profile = ({ userObj }) => {
     const history = useHistory();
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
         authService.signOut();
         history.push("/");
@@ -18,9 +19,19 @@ const Profile = ({ userObj }) => {
     useEffect(() => {
         getMyTweets();
     }, []);
+    const onChange = (e) => {
+        const {target:{value}} = e;
+        setNewDisplayName(value);
+    };
+    const onSubmit = (e) => {
+        e.preventDefault();
+    };
     return (
         <>
-            <span>Profile</span>
+            <form onSubmit={onSubmit}>
+                <input type="text" required onChange={onChange}></input>
+                <input type="submit"></input>
+            </form>
             <button onClick={onLogOutClick}>logout</button>
         </>
     );
