@@ -11,10 +11,10 @@ const Profile = ({ refreshUser, userObj }) => {
         history.push("/");
     };
     const getMyTweets = async () => {
-        await dbService.collection("tweets")
+        const tweets = await dbService.collection("tweets")
         .where("creatorId", "==", userObj.uid)
         .orderBy("createdAt").get();
-
+        console.log(tweets);
     };
     useEffect(() => {
         getMyTweets();

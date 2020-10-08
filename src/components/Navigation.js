@@ -36,6 +36,9 @@ const Navigation = ({userObj}) => {
                 <li>
                     <Link to="/editProfile">editProfile</Link>
                 </li>
+                <li>
+                    <Link to="/recommend">RECOMMEND</Link>
+                </li>
             </ul>
         </nav>
     );
