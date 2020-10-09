@@ -1,11 +1,12 @@
-import { authService } from "fbase";
+import { authService, dbService } from "fbase";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [newAccount, setNewAccount] = useState(true);
+    const [newAccount, setNewAccount] = useState(false);
     const [error, setError] = useState("");
     const onChange = (e) => {
         const {target: {name, value}} = e;
@@ -24,6 +25,12 @@ const AuthForm = () => {
                 data = await authService.createUserWithEmailAndPassword(
                     email, password
                 );
+                await dbService.collection("users").add({
+                    uid: data.uid,
+                    email: email,
+                    vertification: false,
+                    subTree: [],
+                });
             }else{
                 // login
                 data = await authService.signInWithEmailAndPassword(email, password);
@@ -33,7 +40,6 @@ const AuthForm = () => {
             setError(e.message);
         }
     };
-    const toggleAccount = () => setNewAccount(prev => !prev);
     return (
         <>
         <form onSubmit={onSubmit} className="container">
@@ -55,12 +61,14 @@ const AuthForm = () => {
             />
             <input type="submit" 
             className="authInput authSubmit"
-            value={newAccount ? "Create Account" : "Login"}
+            value="Login"
             />
+            
             {error && <span className="authError">{error}</span>}
         </form>
-        <span onClick={toggleAccount} className="authSwitch">
-            {newAccount ? "Login" : "Create Account"}</span>
+        <span className="authSwitch">
+            <Link to="/signup">Create Account</Link>
+        </span>
         </>
     );
 };

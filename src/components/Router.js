@@ -5,6 +5,7 @@ import Home from 'routes/Home';
 import Navigation from 'components/Navigation';
 import Profile from 'routes/Profile';
 import Recommend from 'routes/Recommend';
+import SignUp from 'routes/SignUp';
 
 
 const AppRouter =  ({refreshUser, isLoggedIn, userObj}) => {
@@ -30,13 +31,16 @@ const AppRouter =  ({refreshUser, isLoggedIn, userObj}) => {
                             <Profile refreshUser={refreshUser} userObj={userObj}/>
                         </Route>
                         <Route exact path='/recommend'>
-                            <Recommend/>
+                            <Recommend userObj={userObj}/>
                         </Route>
                     </div>
                 ):(
                     <>
                         <Route exact path="/">
                             <Auth/>
+                        </Route>
+                        <Route exact path="/signup">
+                            <SignUp/>
                         </Route>
                     </>
                 )}
