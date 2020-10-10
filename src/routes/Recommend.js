@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 
 const Recommend = ({userObj}) => {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("ha4219@naver.com");
     const [data, setDate] = useState(null);
 
     const onChange = (e) => {
@@ -14,26 +14,20 @@ const Recommend = ({userObj}) => {
 
     const onClick = async(e) => {
         e.preventDefault();
-        const d = await dbService.collection("users")
-        .where("uid","==",userObj.uid)
-        .onSnapshot((snapshot) => {
-            const user = snapshot.docs.map((doc) => {
-                console.log(user);
+        await dbService.collection("user")
+        .where("email","==",email)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc);
             });
-        })
-        console.log(d);
+        });
     }
 
     const onSubmit = async(e) => {
         e.preventDefault();
         console.log(e);
-        dbService.collection("users").onSnapshot((snapshot) => {
-            const users = snapshot.docs.map(doc => ({
-                id:doc.id,
-                ...doc.data()
-            }));
-            console.log(users);
-        });
+        dbService.collection("user");
     }
 
     return (
