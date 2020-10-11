@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import AppRouter from 'components/Router';
-import {authService} from "fbase";
+import {authService, dbService} from "fbase";
 
 
 function App() {
@@ -9,17 +9,33 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if(user){
-        setUserObj({
-          displayName : user.displayName,
-          uid:user.uid,
-          updateProfile: (args) => user.updateProfile(args),
-        });
+        getUserData(user)
+        .then((s)=>{
+          mergeUserObj(s, user);
+        })
       }else{
         setUserObj(null);
       }
       setInit(true);
     });
   },[]);
+  const mergeUserObj = (data, user) => {
+    console.log(data, user);
+    setUserObj({
+      name:data.name,
+      rank:data.rank,
+      staff:data.staff,
+      vertification:data.vertification,
+      subTree:data.subTree,
+      waitTree:data.waitTree,
+      updateProfile: (args) => user.updateProfile(args),
+    });
+  }
+  const getUserData = async(user) => {
+    const tmp = await dbService.doc(`user/${user.uid}`).get();
+    return tmp.data();
+  }
+
   const refreshUser = async() => {
     const user = await authService.currentUser;
     setUserObj({

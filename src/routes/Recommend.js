@@ -1,33 +1,61 @@
-import { dbService } from "fbase";
-import React, { useState } from "react";
+import { arrayUnion, dbService } from "fbase";
+import React, { useEffect, useState } from "react";
 
 
 
 const Recommend = ({userObj}) => {
-    const [email, setEmail] = useState("ha4219@naver.com");
-    const [data, setDate] = useState(null);
+    const [email, setEmail] = useState("test1@test.com");
+    const [data, setData] = useState({
+        uid: "",
+        name: "",
+        rank: 0,
+        staff:false,
+        vertification:false,
+    });
+    const [parent, setParent] = useState("");
+
+    const addWaiting = async() => {
+        if(data.staff && data.vertification && (data.email!==userObj.email)){
+            let ref = dbService.doc(`user/${data.uid}`);
+            await ref.update({
+                waitTree:arrayUnion(`${userObj.rank} ${userObj.name}`)
+            });
+        } else{
+            return false;
+        }
+    };
+
+    const onClick = () => {
+        console.log(userObj);
+    }
+
+    useEffect(() => {
+
+    }, [data]);
 
     const onChange = (e) => {
         const {target :{value}} = e;
         setEmail(value);
     };
 
-    const onClick = async(e) => {
+    const onSubmit = async(e) => {
         e.preventDefault();
         await dbService.collection("user")
         .where("email","==",email)
         .get()
         .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log(doc);
+            querySnapshot.docs.forEach((doc) => {
+                const tmp = doc.data();
+                setData({
+                    uid:tmp.uid,
+                    email:tmp.email,
+                    name:tmp.name,
+                    rank:tmp.rank,
+                    staff:tmp.staff,
+                    vertification:tmp.vertification
+                });
             });
         });
-    }
-
-    const onSubmit = async(e) => {
-        e.preventDefault();
-        console.log(e);
-        dbService.collection("user");
     }
 
     return (
@@ -39,8 +67,8 @@ const Recommend = ({userObj}) => {
                 / >
                 <input style={btnStyle} type="submit" value="add friend"/>
             </form>
+            {data.uid}
             <button onClick={onClick}></button>
-            {data}
         </>
     );
 }
