@@ -26,8 +26,6 @@ function App() {
       rank:data.rank,
       staff:data.staff,
       vertification:data.vertification,
-      subTree:data.subTree,
-      waitTree:data.waitTree,
       updateProfile: (args) => user.updateProfile(args),
     });
   }
