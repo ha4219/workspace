@@ -12,16 +12,16 @@ const Recommend = ({userObj}) => {
         staff:false,
         vertification:false,
     });
-    const [parent, setParent] = useState("");
 
-    const addWaiting = async() => {
+    const addWaiting = async(data) => {
+        console.log(data);
         if(data.staff && data.vertification && (data.email!==userObj.email)){
             let ref = dbService.doc(`user/${data.uid}`);
             await ref.update({
-                waitTree:arrayUnion(`${userObj.rank} ${userObj.name}`)
+                waitTree:arrayUnion(`${userObj.uid}`)
             });
         } else{
-            return false;
+            console.log('add wait tree do not');
         }
     };
 
@@ -38,14 +38,14 @@ const Recommend = ({userObj}) => {
         setEmail(value);
     };
 
-    const onSubmit = async(e) => {
-        e.preventDefault();
+    const getParent = async() => {
+        let tmp = null;
         await dbService.collection("user")
         .where("email","==",email)
         .get()
         .then((querySnapshot) => {
             querySnapshot.docs.forEach((doc) => {
-                const tmp = doc.data();
+                tmp = doc.data();
                 setData({
                     uid:tmp.uid,
                     email:tmp.email,
@@ -54,7 +54,19 @@ const Recommend = ({userObj}) => {
                     staff:tmp.staff,
                     vertification:tmp.vertification
                 });
+                console.log(tmp);
+                ;
             });
+        });
+        return tmp
+    }
+
+    const onSubmit = async(e) => {
+        e.preventDefault();
+        getParent()
+        .then((s) => {
+            console.log(s);
+            addWaiting(s);
         });
     }
 
