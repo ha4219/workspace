@@ -15,6 +15,7 @@ const Recommend = ({userObj}) => {
 
     const addWaiting = async(data) => {
         console.log(data);
+        console.log(userObj);
         if(data.staff && data.vertification && (data.email!==userObj.email)){
             let ref = dbService.doc(`user/${data.uid}`);
             await ref.update({
@@ -54,7 +55,6 @@ const Recommend = ({userObj}) => {
                     staff:tmp.staff,
                     vertification:tmp.vertification
                 });
-                console.log(tmp);
                 ;
             });
         });

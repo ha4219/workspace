@@ -1,23 +1,29 @@
 import { authService, dbService } from 'fbase';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {getUserData} from 'api/ApiUser';
 
 
 const Profile = ({ refreshUser, userObj }) => {
     const history = useHistory();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+    const [subTree, setSubTree] = useState([]);
+    const [waitTree, setWaitTree] = useState([]);
+    
     const onLogOutClick = () => {
         authService.signOut();
         history.push("/");
     };
-    const getMyTweets = async () => {
-        const tweets = await dbService.collection("tweets")
-        .where("creatorId", "==", userObj.uid)
-        .orderBy("createdAt").get();
-        console.log(tweets);
+    const getTrees = async () => {
+        getUserData(userObj.uid).
+        then((e) => {
+            setSubTree(e.subTree);
+            setWaitTree(e.waitTree);
+        });
+        
     };
     useEffect(() => {
-        getMyTweets();
+        getTrees();
     }, []);
     const onChange = (e) => {
         const {target:{value}} = e;

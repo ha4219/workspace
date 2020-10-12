@@ -22,6 +22,7 @@ function App() {
   const mergeUserObj = (data, user) => {
     console.log(data, user);
     setUserObj({
+      uid:user.uid,
       name:data.name,
       rank:data.rank,
       staff:data.staff,
