@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getUserData } from 'api/ApiUser';
 import React, { useEffect, useState } from 'react';
+import {faCheck, faEject} from "@fortawesome/free-solid-svg-icons";
 
 
 const WaitNode = ({userObj, targetUid}) => {
@@ -15,13 +17,19 @@ const WaitNode = ({userObj, targetUid}) => {
         
         console.log(rank, name);
     }
+    const addUser = () => {
+
+    }
+
     useEffect(() => {
         getInfo();
     },[]);
     return (
-        <div>
+        <form className="nweet" style={{marginTop:10}}>
             {rank} {name}
-        </div>
+            <FontAwesomeIcon icon={faCheck}/>
+            <FontAwesomeIcon icon={faEject}/>
+        </form>
     );
 };
 
