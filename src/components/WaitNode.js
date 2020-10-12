@@ -6,9 +6,14 @@ const WaitNode = ({userObj, targetUid}) => {
     const [rank, setRank] = useState("");
     const [name, setName] = useState("");
     const getInfo = () => {
-        const data = getUserData(targetUid);
-        setRank(data.rank);
-        setName(data.name);
+        getUserData(targetUid)
+        .then((data) => {
+            console.log(data);
+            setRank(data.rank);
+            setName(data.name);
+        });
+        
+        console.log(rank, name);
     }
     useEffect(() => {
         getInfo();

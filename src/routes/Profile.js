@@ -2,6 +2,7 @@ import { authService, dbService } from 'fbase';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {getUserData} from 'api/ApiUser';
+import WaitNode from 'components/WaitNode';
 
 
 const Profile = ({ refreshUser, userObj }) => {
@@ -58,6 +59,11 @@ const Profile = ({ refreshUser, userObj }) => {
             className="formBtn cancelBtn logOut"
             onClick={onLogOutClick}>logout
             </span>
+            <div>
+                {waitTree.map((val) => 
+                    <WaitNode userObj={userObj} targetUid={val}/>
+                )}
+            </div>
         </div>
     );
 };

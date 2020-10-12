@@ -5,5 +5,3 @@ export const getUserData = async(uid) => {
     console.log(data, data.data());
     return data.data();
 }
-
-
